@@ -1,0 +1,30 @@
+#ifndef WRITE1411_SOAP_REQ_H
+ #define WRITE1411_SOAP_REQ_H
+
+#define WRITE1411_SOAP_START "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
+<SOAP-ENV:Envelope\
+    xmlns:SOAP-ENV=\"http://www.w3.org/2003/05/soap-envelope\"\
+    xmlns:SOAP-ENC=\"http://www.w3.org/2003/05/soap-encoding\"\
+    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\
+    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\
+    xmlns:wr1gss=\"http://www.isotc211.org/2005/gss\"\
+    xmlns:wr1gsr=\"http://www.isotc211.org/2005/gsr\"\
+    xmlns:wr1abs=\"http://www.energistics.org/schemas/abstract\"\
+    xmlns:wr1witsml=\"http://www.witsml.org/schemas/1series\"\
+    xmlns:wr1gml=\"http://www.opengis.net/gml/3.2\"\
+    xmlns:xlink=\"http://www.w3.org/1999/xlink\"\
+    xmlns:wr1gmd=\"http://www.isotc211.org/2005/gmd\"\
+    xmlns:wr1gco=\"http://www.isotc211.org/2005/gco\"\
+    xmlns:wr1gts=\"http://www.isotc211.org/2005/gts\"\
+    xmlns:wr1411=\"http://cwitsml.org/wr1411.xsd\">\
+ <SOAP-ENV:Body>\
+  <wr1411:writeObj1411>\
+   <obj xsi:type=\"wr1411:writeObj1411_t\">"
+
+#define WRITE1411_SOAP_END "</obj>\
+  </wr1411:writeObj1411>\
+ </SOAP-ENV:Body>\
+</SOAP-ENV:Envelope>"
+
+#endif
+

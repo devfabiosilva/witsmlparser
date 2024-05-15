@@ -1,0 +1,120 @@
+    <attachments xsi:type="obj_attachments" version="1.4.1.1">
+
+     <documentInfo xsi:type="cs_documentInfo">
+
+      <documentName xsi:type="nameStruct" namingSystem="X">X</documentName>
+      <documentAlias xsi:type="nameStruct" namingSystem="X">X</documentAlias>
+      <documentDate xsi:type="timestamp">2023-07-28T00:02:46Z</documentDate>
+      <documentClass xsi:type="nameStruct" namingSystem="X">X</documentClass>
+      <fileCreationInformation xsi:type="cs_documentFileCreation">
+
+       <fileCreationDate xsi:type="timestamp">2023-07-28T00:02:46Z</fileCreationDate>
+       <softwareName xsi:type="nameString">X</softwareName>
+       <fileCreator xsi:type="nameString">X</fileCreator>
+       <comment xsi:type="commentString">X</comment>
+      
+      </fileCreationInformation>
+      <securityInformation xsi:type="cs_documentSecurityInfo" uid="X">
+
+       <class xsi:type="kindString">X</class>
+       <securitySystem xsi:type="kindString">X</securitySystem>
+       <endDate xsi:type="timestamp">2023-07-28T00:02:46Z</endDate>
+       <comment xsi:type="commentString">X</comment>
+       <extensionNameValue xsi:type="cs_extensionNameValue" uid="X">
+
+        <name xsi:type="ExtensionName">X</name>
+        <value xsi:type="extensionvalue" uom="X">X</value>
+        <dataType xsi:type="PrimitiveType">string</dataType>
+        <dTim xsi:type="timestamp">2023-07-28T00:02:46Z</dTim>
+        <md xsi:type="measuredDepthCoord" uom="m" datum="X">0.0</md>
+        <index xsi:type="positiveCount">0</index>
+        <measureClass xsi:type="MeasureClass">X</measureClass>
+        <description xsi:type="descriptionString">X</description>
+       
+       </extensionNameValue>
+      
+      </securityInformation>
+      <disclaimer xsi:type="commentString">X</disclaimer>
+      <auditTrail xsi:type="cs_documentAudit">
+
+       <event xsi:type="cs_documentEvent" uid="X">
+
+        <eventDate xsi:type="timestamp">2023-07-28T00:02:46Z</eventDate>
+        <eventType xsi:type="nameString">X</eventType>
+        <responsibleParty xsi:type="nameString">X</responsibleParty>
+        <comment xsi:type="commentString">X</comment>
+        <extensionNameValue xsi:type="cs_extensionNameValue" uid="X">
+
+         <name xsi:type="ExtensionName">X</name>
+         <value xsi:type="extensionvalue" uom="X">X</value>
+         <dataType xsi:type="PrimitiveType">string</dataType>
+         <dTim xsi:type="timestamp">2023-07-28T00:02:46Z</dTim>
+         <md xsi:type="measuredDepthCoord" uom="m" datum="X">0.0</md>
+         <index xsi:type="positiveCount">0</index>
+         <measureClass xsi:type="MeasureClass">X</measureClass>
+         <description xsi:type="descriptionString">X</description>
+        
+        </extensionNameValue>
+       
+       </event>
+      
+      </auditTrail>
+      <owner xsi:type="nameString">X</owner>
+      <comment xsi:type="commentString">X</comment>
+     
+     </documentInfo>
+     <attachment xsi:type="obj_attachment" uidWell="X" uidWellbore="X" uid="X">
+
+      <nameWell xsi:type="nameString">X</nameWell>
+      <nameWellbore xsi:type="nameString">X</nameWellbore>
+      <name xsi:type="nameString">X</name>
+
+      <objectReference xsi:type="refObjectString" object="X" uidRef="X">X</objectReference>
+      <subObjectReference xsi:type="refObjectString" object="X" uidRef="X">X</subObjectReference>
+      <md xsi:type="measuredDepthCoord" uom="m" datum="X">0.0</md>
+      <mdBit xsi:type="measuredDepthCoord" uom="m" datum="X">0.0</mdBit>
+      <param xsi:type="indexedObject" index="0" name="X" uom="X" description="X" uid="X">X</param>
+      <fileName xsi:type="nameString">X</fileName>
+      <description xsi:type="commentString">X</description>
+      <fileType xsi:type="nameString">X</fileType>
+      <content xsi:type="xsd:base64Binary">Q29udGVudCBpbiBiaW5hcnkK</content>
+     
+      <commonData xsi:type="cs_commonData">
+
+       <sourceName xsi:type="nameString">X</sourceName>
+       <dTimCreation xsi:type="timestamp">2023-07-28T00:02:46Z</dTimCreation>
+       <dTimLastChange xsi:type="timestamp">2023-07-28T00:02:46Z</dTimLastChange>
+       <itemState xsi:type="ItemState">actual</itemState>
+       <serviceCategory xsi:type="kindString">X</serviceCategory>
+       <comments xsi:type="commentString">X</comments>
+       <acquisitionTimeZone xsi:type="timestampedTimeZone" dTim="2023-07-28T00:02:46Z">X</acquisitionTimeZone>
+       <defaultDatum xsi:type="refNameString" uidRef="X">X</defaultDatum>
+       <privateGroupOnly xsi:type="xsd:boolean">false</privateGroupOnly>
+       <extensionAny xsi:type="cs_extensionAny">
+
+        <!-- extensibility element(s) -->
+       
+       </extensionAny>
+       <extensionNameValue xsi:type="cs_extensionNameValue" uid="X">
+
+        <name xsi:type="ExtensionName">X</name>
+        <value xsi:type="extensionvalue" uom="X">X</value>
+        <dataType xsi:type="PrimitiveType">string</dataType>
+        <dTim xsi:type="timestamp">2023-07-28T00:02:46Z</dTim>
+        <md xsi:type="measuredDepthCoord" uom="m" datum="X">0.0</md>
+        <index xsi:type="positiveCount">0</index>
+        <measureClass xsi:type="MeasureClass">X</measureClass>
+        <description xsi:type="descriptionString">X</description>
+       
+       </extensionNameValue>
+      
+      </commonData>
+      <customData xsi:type="cs_customData">
+
+       <!-- extensibility element(s) -->
+      
+      </customData>
+     
+     </attachment>
+    
+    </attachments>

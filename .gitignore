@@ -50,3 +50,37 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Java libraries
+
+*.class
+Java/target/
+
+# MISC FILES
+versionBuilder
+
+# JAVA IDEs
+Java/.idea/
+
+# C third-party libraries
+third-party/mongo-c-driver/
+include/bson/
+
+# Python C modules
+build/
+
+# BSON files
+*.bson
+
+# LOG FILES
+*.log
+
+# C TEST EXECUTABLE
+testexec
+
+# NODEJS Folders
+*.node
+NodeJS/node_modules/
+NodeJS/package-lock.json
+examples/node_modules/
+

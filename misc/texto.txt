@@ -1,0 +1,26 @@
+struct rd1gml__GeodeticCRSType {
+        /** Optional element 'rd1gml:remarks' of XML schema type 'xsd:string' */
+        char *remarks;
+        /** Sequence of elements 'rd1gml:domainOfValidity' of XML schema type 'rd1gml:domainOfValidity' stored in dynamic array domainOfValidity_ of length __sizedomainOfValidity */
+        int __sizedomainOfValidity;
+        struct _rd1gml__domainOfValidity *domainOfValidity_;
+        /** Sequence of at least 1 elements 'rd1gml:scope' of XML schema type 'xsd:string' stored in dynamic array scope_ of length __sizescope */
+        int __sizescope;
+        char **scope_;
+        /** Optional element 'rd1gml:ellipsoidalCS' of XML schema type 'rd1gml:EllipsoidalCSPropertyType' */
+        struct rd1gml__EllipsoidalCSPropertyType *ellipsoidalCS;
+        /** Optional element 'rd1gml:usesEllipsoidalCS' of XML schema type 'rd1gml:EllipsoidalCSPropertyType' */
+        struct rd1gml__EllipsoidalCSPropertyType *usesEllipsoidalCS;
+        /** Optional element 'rd1gml:cartesianCS' of XML schema type 'rd1gml:CartesianCSPropertyType' */
+        struct rd1gml__CartesianCSPropertyType *cartesianCS;
+        /** Optional element 'rd1gml:usesCartesianCS' of XML schema type 'rd1gml:CartesianCSPropertyType' */
+        struct rd1gml__CartesianCSPropertyType *usesCartesianCS;
+        /** Optional element 'rd1gml:sphericalCS' of XML schema type 'rd1gml:SphericalCSPropertyType' */
+        struct rd1gml__SphericalCSPropertyType *sphericalCS;
+        /** Optional element 'rd1gml:usesSphericalCS' of XML schema type 'rd1gml:SphericalCSPropertyType' */
+        struct rd1gml__SphericalCSPropertyType *usesSphericalCS;
+        /** Optional element 'rd1gml:geodeticDatum' of XML schema type 'rd1gml:GeodeticDatumPropertyType' */
+        struct rd1gml__GeodeticDatumPropertyType *geodeticDatum;
+        /** Optional element 'rd1gml:usesGeodeticDatum' of XML schema type 'rd1gml:GeodeticDatumPropertyType' */
+        struct rd1gml__GeodeticDatumPropertyType *usesGeodeticDatum;
+};

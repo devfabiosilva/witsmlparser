@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope
+    xmlns:SOAP-ENV="http://www.w3.org/2003/05/soap-envelope"
+    xmlns:SOAP-ENC="http://www.w3.org/2003/05/soap-encoding"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:dl1gss="http://www.isotc211.org/2005/gss"
+    xmlns:dl1gsr="http://www.isotc211.org/2005/gsr"
+    xmlns:dl1abs="http://www.energistics.org/schemas/abstract"
+    xmlns:dl1witsml="http://www.witsml.org/schemas/1series"
+    xmlns:dl1gml="http://www.opengis.net/gml/3.2"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:dl1gmd="http://www.isotc211.org/2005/gmd"
+    xmlns:dl1gco="http://www.isotc211.org/2005/gco"
+    xmlns:dl1gts="http://www.isotc211.org/2005/gts"
+    xmlns:dl1411="http://tempuri.org/dl1411.xsd">
+ <SOAP-ENV:Body>
+  <dl1411:deleteObj1411Response>
+   <result xsi:type="xsd:string"></result>
+  </dl1411:deleteObj1411Response>
+ </SOAP-ENV:Body>
+</SOAP-ENV:Envelope>

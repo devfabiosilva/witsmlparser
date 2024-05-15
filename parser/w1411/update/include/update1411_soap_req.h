@@ -1,0 +1,30 @@
+#ifndef UPDATE1411_SOAP_REQ_H
+ #define UPDATE1411_SOAP_REQ_H
+
+#define UPDATE1411_SOAP_START "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\
+<SOAP-ENV:Envelope\
+    xmlns:SOAP-ENV=\"http://www.w3.org/2003/05/soap-envelope\"\
+    xmlns:SOAP-ENC=\"http://www.w3.org/2003/05/soap-encoding\"\
+    xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\
+    xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\"\
+    xmlns:up1gss=\"http://www.isotc211.org/2005/gss\"\
+    xmlns:up1gsr=\"http://www.isotc211.org/2005/gsr\"\
+    xmlns:up1abs=\"http://www.energistics.org/schemas/abstract\"\
+    xmlns:up1witsml=\"http://www.witsml.org/schemas/1series\"\
+    xmlns:up1gml=\"http://www.opengis.net/gml/3.2\"\
+    xmlns:xlink=\"http://www.w3.org/1999/xlink\"\
+    xmlns:up1gmd=\"http://www.isotc211.org/2005/gmd\"\
+    xmlns:up1gco=\"http://www.isotc211.org/2005/gco\"\
+    xmlns:up1gts=\"http://www.isotc211.org/2005/gts\"\
+    xmlns:up1411=\"http://cwitsml.org/up1411.xsd\">\
+ <SOAP-ENV:Body>\
+  <up1411:updateObj1411>\
+   <obj xsi:type=\"up1411:updateObj1411_t\">"
+
+#define UPDATE1411_SOAP_END "</obj>\
+  </up1411:updateObj1411>\
+ </SOAP-ENV:Body>\
+</SOAP-ENV:Envelope>"
+
+#endif
+
