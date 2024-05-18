@@ -40,6 +40,7 @@ public class JWitsmlParserLoader {
     private native TreeMap<Integer, String> baseMsgList() throws Exception;
     public native void close() throws Exception;
     public native boolean isClosed() throws Exception;
+    public native byte[] getSerializedBson() throws Exception;
 
     JWitsmlParserLoader() throws Exception {
         this.init(0, false);

@@ -77,4 +77,18 @@ public class JWitsmlParserLoaderTest extends TestCase {
         jWitsmlParserLoader.saveToFile(null);
         jWitsmlParserLoader.saveToFileJSON(null);
     }
+
+    public void testBsonSerialized() throws Exception, JWitsmlException {
+        try {
+            jWitsmlParserLoader.getSerializedBson();
+        } catch (Exception e) {
+            assertEquals("getSerializedBson: WITSML error or object not parsed yet", e.getMessage());
+        }
+
+        BSONObject resBson = jWitsmlParserLoader.parseFromFileToBson("../test.xml");
+        assertNotNull(resBson);
+
+        byte [] resBsonSerialized = jWitsmlParserLoader.getSerializedBson();
+        assertNotNull(resBsonSerialized);
+    }
 }

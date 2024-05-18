@@ -495,7 +495,6 @@ static int c_parse_util(
 JNIEXPORT jint JNICALL
 JNI_OnLoad(JavaVM *vm, void *reserved)
 {
-  printf("ON LOAD...\n");
   if (read_random((void *)&code, sizeof(code)))
     return -1;
 
@@ -505,8 +504,7 @@ JNI_OnLoad(JavaVM *vm, void *reserved)
 JNIEXPORT void JNICALL
 JNI_OnUnload(JavaVM *vm, void *reserved)
 {
-
-  printf("ON UNLOAD...\n");
+// DO NOTHING
 }
 
 /*
@@ -871,6 +869,36 @@ JNIEXPORT void JNICALL Java_org_jwitsmlparser14x_JWitsmlParserLoader_##fnName\
 
 WITSML_FILE_SAVER(saveToFile, writeToFile)
 WITSML_FILE_SAVER(saveToFileJSON, writeToFileJSON)
+
+/*
+ * Class:     org_jwitsmlparser14x_JWitsmlParserLoader
+ * Method:    getSerializedBson
+ * Signature: ()[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_org_jwitsmlparser14x_JWitsmlParserLoader_getSerializedBson
+(
+  JNIEnv *env,
+  jobject thisObject
+)
+{
+  CWS_CONFIG *config;
+  struct c_bson_serialized_t *c_bson_serialized;
+
+  if (cGetCWS_CONFIG(&config, env, thisObject, "getSerializedBson"))
+    return NULL;
+
+  if (HAS_ERROR) {
+    throwCWitsmlException("getSerializedBson: WITSML error or object not parsed yet");
+    return NULL;
+  }
+
+  if (!(c_bson_serialized=bsonSerialize(config))) {
+    throwCWitsmlException("getSerializedBson: Could not get BSON serialized");
+    return NULL;
+  }
+
+  return cNewByteArray(env, c_bson_serialized->bson, c_bson_serialized->bson_size, "getSerializedBson");
+}
 
 /*
  * Class:     org_jwitsmlparser14x_JWitsmlParserLoader
