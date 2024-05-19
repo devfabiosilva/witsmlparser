@@ -20,6 +20,12 @@ public class JWitsmlParserLoader {
             throw e;
         }
     }
+    public enum RULE_TYPE {
+        ACTION_READ_141X,
+        ACTION_WRITE_141X,
+        ACTION_UPDATE_141X,
+        ACTION_DELETE_141X,
+    };
 
     BSONDecoder decoder = new BasicBSONDecoder();
     private TreeMap<Integer, String> baseMsgListMap = null;
@@ -42,12 +48,26 @@ public class JWitsmlParserLoader {
     public native boolean isClosed() throws Exception;
     public native byte[] getSerializedBson() throws Exception;
 
+    private int nativeRuleType(RULE_TYPE rule) {
+        switch (rule) {
+            case ACTION_READ_141X:
+                return 0;
+            case ACTION_WRITE_141X:
+                return 1;
+            case ACTION_DELETE_141X:
+                return 2;
+            case ACTION_UPDATE_141X:
+                return 3;
+            default:
+                return -1;
+        }
+    }
     JWitsmlParserLoader() throws Exception {
         this.init(0, false);
     }
 
-    JWitsmlParserLoader(int rule, boolean versionCheckDisable) throws Exception {
-        this.init(rule, versionCheckDisable);
+    JWitsmlParserLoader(RULE_TYPE rule, boolean versionCheckDisable) throws Exception {
+        this.init(nativeRuleType(rule), versionCheckDisable);
     }
 
     public BSONObject parseToBson(String xml) throws JWitsmlException, Exception {

@@ -4,22 +4,23 @@ import junit.framework.TestCase;
 import org.bson.BSONObject;
 import org.jwitsmlparser14x.exception.JWitsmlException;
 
+import static org.jwitsmlparser14x.JWitsmlParserLoader.RULE_TYPE.ACTION_READ_141X;
 import static org.jwitsmlparser14x.JWitsmlParserLoader.getBinaryBsonVersion;
 
 public class JWitsmlParserLoaderTest extends TestCase {
 
     private JWitsmlParserLoader jWitsmlParserLoader = null;
-    //private JWitsmlParserLoader jWitsmlParserLoader2 = null;
+    private JWitsmlParserLoader jWitsmlParserLoader2 = null;
     public void setUp() throws Exception {
         super.setUp();
         jWitsmlParserLoader = new JWitsmlParserLoader();
-        //jWitsmlParserLoader2 = new JWitsmlParserLoader(0, true);
+        jWitsmlParserLoader2 = new JWitsmlParserLoader(ACTION_READ_141X, true);
     }
 
     public void tearDown() throws Exception {
         if (!jWitsmlParserLoader.isClosed())
             jWitsmlParserLoader.close();
-        //jWitsmlParserLoader2.close();
+        jWitsmlParserLoader2.close();
     }
 
     public void testParser() throws JWitsmlException, Exception {
@@ -33,12 +34,12 @@ public class JWitsmlParserLoaderTest extends TestCase {
 
     public void testGetBsonVersion() throws Exception {
         assertNotNull(jWitsmlParserLoader.getBsonVersion());
-        //assertNotNull(jWitsmlParserLoader2.getBsonVersion());
+        assertNotNull(jWitsmlParserLoader2.getBsonVersion());
     }
 
     public void testBaseMsgList() throws Exception {
         assertNotNull(jWitsmlParserLoader.getBaseMsgList());
- //       assertNull(jWitsmlParserLoader2.getBaseMsgList());
+        assertNull(jWitsmlParserLoader2.getBaseMsgList());
     }
 
     public void testClose() throws Exception {
