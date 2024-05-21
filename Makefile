@@ -752,3 +752,20 @@ else
 	pwd; cd $(CURDIR)/third-party; pwd; git clone -b $(MONGO_C_BRANCH) $(MONGO_C_GIT); cd mongo-c-driver;mkdir compiled && cd compiled; cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_MONGOC=OFF -DCMAKE_INSTALL_PREFIX=$(MONGO_C_DIR)/compiled/out; make -j12;make install; pwd; cp out/lib/libbson-static-1.0.a $(LIBDIR) -v;cp -frv out/include/libbson-1.0/bson $(INCLUDEDIR);cd src/libbson/CMakeFiles/bson_shared.dir; pwd; ar rcs $(LIBDIR)/libbson-shared-1.0.a src/bson/*.o src/jsonsl/*.o __/common/*.o
 endif
 
+remove_bson:
+ifneq ("$(wildcard $(LIBDIR)/lib*.a)","")
+	@echo "Removing BSON library"
+	rm -v $(LIBDIR)/lib*.a
+	@echo "Removed"
+else
+	@echo "Nothing to do to remove BSON library"
+endif
+
+ifneq ("$(wildcard $(MONGO_C_DIR))","")
+	@echo "Removing Mongo C branch $(MONGO_C_BRANCH)"
+	rm -rfv $(MONGO_C_DIR)
+	@echo "Removed Mongo C $(MONGO_C_BRANCH)"
+else
+	@echo "Nothing to do to remove Mongo C $(MONGO_C_BRANCH)"
+endif
+

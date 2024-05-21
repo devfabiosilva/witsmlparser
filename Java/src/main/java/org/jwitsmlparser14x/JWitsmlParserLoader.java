@@ -25,7 +25,7 @@ public class JWitsmlParserLoader {
         ACTION_WRITE_141X,
         ACTION_UPDATE_141X,
         ACTION_DELETE_141X,
-    };
+    }
 
     BSONDecoder decoder = new BasicBSONDecoder();
     private TreeMap<Integer, String> baseMsgListMap = null;

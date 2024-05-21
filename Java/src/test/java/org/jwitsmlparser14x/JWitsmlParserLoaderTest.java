@@ -51,7 +51,7 @@ public class JWitsmlParserLoaderTest extends TestCase {
         assertFalse(jWitsmlParserLoader.isClosed());
         jWitsmlParserLoader.close();
         assertTrue(jWitsmlParserLoader.isClosed());
-        //assertFalse(jWitsmlParserLoader2.isClosed());
+        assertFalse(jWitsmlParserLoader2.isClosed());
     }
 
     public void testParseFromFileToBson() throws JWitsmlException, Exception {

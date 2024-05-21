@@ -363,7 +363,7 @@ static void js_cws_config_free(struct js_cws_config_t **js_cws_config)
 
 }
 
-static struct js_cws_config_t *js_cws_config_init(int32_t rule, bool versionCheckDisable)
+static struct js_cws_config_t *js_cws_config_init(int32_t rule, int versionCheckDisable)
 {
   struct js_cws_config_t *js_cws_config;
 
@@ -372,9 +372,9 @@ static struct js_cws_config_t *js_cws_config_init(int32_t rule, bool versionChec
     return NULL;
 
   if (versionCheckDisable)
-    rule|=CWS_FLAG_CHECK_VERSION_DISABLE;
+    versionCheckDisable=CWS_FLAG_CHECK_VERSION_DISABLE;
 
-  if (!(js_cws_config->config=cws_config_new("JSWITSML 1.4.x.x - 1.3.x.x BSON parser", NULL, CWS_FLAG_RECYCLABLE|(int)rule, 0)))
+  if (!(js_cws_config->config=cws_config_new("JSWITSML 1.4.x.x - 1.3.x.x BSON parser", NULL, CWS_FLAG_RECYCLABLE|versionCheckDisable, (int)rule)))
     goto js_cws_config_init_exit1;
 
   js_cws_config->err=0;
