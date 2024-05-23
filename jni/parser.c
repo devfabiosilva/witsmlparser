@@ -902,6 +902,36 @@ JNIEXPORT jbyteArray JNICALL Java_org_jwitsmlparser14x_JWitsmlParserLoader_getSe
 
 /*
  * Class:     org_jwitsmlparser14x_JWitsmlParserLoader
+ * Method:    getJsonStr
+ * Signature: ()[B
+ */
+JNIEXPORT jbyteArray JNICALL Java_org_jwitsmlparser14x_JWitsmlParserLoader_getJsonStr
+(
+  JNIEnv *env,
+  jobject thisObject
+)
+{
+  CWS_CONFIG *config;
+  struct c_json_str_t *c_json_str;
+
+  if (cGetCWS_CONFIG(&config, env, thisObject, "getJsonStr"))
+    return NULL;
+
+  if (HAS_ERROR) {
+    throwCWitsmlException("getJsonStr: WITSML error or object not parsed yet");
+    return NULL;
+  }
+
+  if (!(c_json_str=getJson(config))) {
+    throwCWitsmlException("getJsonStr: Could not get BSON serialized");
+    return NULL;
+  }
+
+  return cNewByteArray(env, (uint8_t *)c_json_str->json, c_json_str->json_len, "getJsonStr");
+}
+
+/*
+ * Class:     org_jwitsmlparser14x_JWitsmlParserLoader
  * Method:    getError
  * Signature: ()I
  */

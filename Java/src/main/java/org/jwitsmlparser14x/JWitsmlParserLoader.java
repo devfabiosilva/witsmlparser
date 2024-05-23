@@ -47,6 +47,7 @@ public class JWitsmlParserLoader {
     public native void close() throws Exception;
     public native boolean isClosed() throws Exception;
     public native byte[] getSerializedBson() throws Exception;
+    private native byte [] getJsonStr() throws Exception;
 
     private int nativeRuleType(RULE_TYPE rule) {
         switch (rule) {
@@ -94,9 +95,18 @@ public class JWitsmlParserLoader {
             this.baseMsgListMap = baseMsgList();
         return this.baseMsgListMap;
     }
-   public BSONObject getBsonVersion() throws Exception {
+
+    public BSONObject getBson() throws Exception {
+        return this.decoder.readObject(this.getSerializedBson());
+    }
+
+    public String getJson() throws Exception {
+        return new String(this.getJsonStr(), StandardCharsets.UTF_8);
+    }
+
+    public BSONObject getBsonVersion() throws Exception {
         if (this.bsonVersion == null)
             this.bsonVersion = this.decoder.readObject(getBinaryBsonVersion());
         return this.bsonVersion;
-   }
+    }
 }
