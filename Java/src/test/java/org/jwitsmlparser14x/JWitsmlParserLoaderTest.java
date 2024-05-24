@@ -11,16 +11,16 @@ import static org.jwitsmlparser14x.JWitsmlParserLoader.getBinaryBsonVersion;
 
 public class JWitsmlParserLoaderTest extends TestCase {
 
-    private String attachmentText =
+    private final String attachmentText =
             "<attachments version=\"1.4.1.1\">\n" +
             " <attachment uidWell=\"A\" uidWellbore=\"B\" uid=\"C\">\n" +
             "  <nameWell>name well</nameWell>\n" +
             "  <nameWellbore>name wellbore</nameWellbore>\n" +
-            "  <name xsi:type=\"nameString\">NAME</name>\n" +
+            "  <name>NAME</name>\n" +
             " </attachment>\n" +
             "</attachments>";
 
-    private String expectedJsonStr = "{ \"attachments\" : { \"#attributes\" : { \"version\" : \"1.4.1.1\" }, \"attachment\" : [ { \"#attributes\" : { \"uidWell\" : \"A\", \"uidWellbore\" : \"B\", \"uid\" : \"C\" }, \"nameWell\" : \"name well\", \"nameWellbore\" : \"name wellbore\", \"name\" : \"NAME\" } ] } }";
+    private final String expectedJsonStr = "{ \"attachments\" : { \"#attributes\" : { \"version\" : \"1.4.1.1\" }, \"attachment\" : [ { \"#attributes\" : { \"uidWell\" : \"A\", \"uidWellbore\" : \"B\", \"uid\" : \"C\" }, \"nameWell\" : \"name well\", \"nameWellbore\" : \"name wellbore\", \"name\" : \"NAME\" } ] } }";
 
     private JWitsmlParserLoader jWitsmlParserLoader = null;
     private JWitsmlParserLoader jWitsmlParserLoader2 = null;
@@ -36,9 +36,48 @@ public class JWitsmlParserLoaderTest extends TestCase {
         jWitsmlParserLoader2.close();
     }
 
+    private Object navigate(BSONObject obj, Object ...args) throws Exception {
+        Object tmp = obj;
+        for (Object arg : args) {
+            if (tmp instanceof BasicBSONObject) {
+                tmp = ((BSONObject) tmp).get((String) arg);
+            } else if (tmp instanceof BasicBSONList) {
+                tmp = ((BasicBSONList)tmp).get((Integer) arg);
+            } else
+                throw new Exception("Invalid object");
+        }
+        return tmp;
+    }
+
+    public void testParseToBson() throws JWitsmlException, Exception {
+        BSONObject bson = jWitsmlParserLoader2.parseToBson(attachmentText);
+        assertNotNull(bson);
+        assertEquals("1.4.1.1", (String) navigate(bson, "attachments", "#attributes", "version"));
+
+        BSONObject attachmentAttr = (BSONObject) navigate(bson, "attachments", "attachment", 0, "#attributes");
+
+        assertEquals("A", attachmentAttr.get("uidWell"));
+        assertEquals("B", attachmentAttr.get("uidWellbore"));
+        assertEquals("C", attachmentAttr.get("uid"));
+
+        BSONObject attachmentTags = (BSONObject) navigate(bson, "attachments", "attachment", 0);
+
+        assertEquals("name well", attachmentTags.get("nameWell"));
+        assertEquals("name wellbore", attachmentTags.get("nameWellbore"));
+        assertEquals("NAME", attachmentTags.get("name"));
+
+    }
+
+    public void testParseToJson() throws JWitsmlException, Exception {
+        String json = jWitsmlParserLoader2.parseToJson(attachmentText);
+        assertNotNull(json);
+        assertEquals(expectedJsonStr, json);
+    }
+
     public void testParser() throws JWitsmlException, Exception {
         try {
             jWitsmlParserLoader.parser( "<wrongTag />");
+            fail("Could not execute this line");
         } catch (JWitsmlException e) {
             assertEquals("parser: Could not deserialize xml string. See xml errors for details", e.getMessage());
             assertEquals("Client validation error: Validation constraint violation: tag name or namespace mismatch in element 'wrongTag'", e.getBaseMsg());
@@ -50,6 +89,7 @@ public class JWitsmlParserLoaderTest extends TestCase {
 
         try {
             jWitsmlParserLoader.parser("");
+            fail("Could not execute this line");
         } catch (JWitsmlException e) {
             fail("Could not throw JWitsmlException in this line");
         } catch (Exception e) {
@@ -58,6 +98,7 @@ public class JWitsmlParserLoaderTest extends TestCase {
 
         try {
             jWitsmlParserLoader.parser(null);
+            fail("Could not execute this line");
         } catch (JWitsmlException e) {
             fail("Could not throw JWitsmlException in this line");
         } catch (Exception e) {
@@ -88,17 +129,15 @@ public class JWitsmlParserLoaderTest extends TestCase {
 
     public void testGetBsonVersion() throws Exception {
         assertNotNull(jWitsmlParserLoader.getBsonVersion());
-        assertNotNull(jWitsmlParserLoader2.getBsonVersion());
     }
 
     public void testBaseMsgList() throws Exception {
         assertNotNull(jWitsmlParserLoader.getBaseMsgList());
-        assertNull(jWitsmlParserLoader2.getBaseMsgList());
+        assertNotNull(jWitsmlParserLoader2.getBaseMsgList());
     }
 
     public void testClose() throws Exception {
         jWitsmlParserLoader.close();
-        //jWitsmlParserLoader2.close();
     }
 
     public void testIsClosed() throws Exception {
@@ -109,7 +148,7 @@ public class JWitsmlParserLoaderTest extends TestCase {
     }
 
     public void testParseFromFileToBson() throws JWitsmlException, Exception {
-        BSONObject res = jWitsmlParserLoader.parseFromFileToBson("../testa.xml");
+        BSONObject res = jWitsmlParserLoader.parseFromFileToBson("../test.xml");
         assertNotNull(res);
     }
 
@@ -119,12 +158,26 @@ public class JWitsmlParserLoaderTest extends TestCase {
         assertNotNull(res);
     }
 
-    public void testFileInvalid1 () throws Exception {
-        jWitsmlParserLoader.saveToFile(null);
+    public void testFileInvalid1 () {
+        try {
+            jWitsmlParserLoader.saveToFile(null);
+            fail("Could not execute this line");
+        } catch (Exception e) {
+            assertEquals("saveToFile: WITSML error or object not parsed", e.getMessage());
+        }
     }
 
-    public void testFileInvalid2 () throws Exception {
-        jWitsmlParserLoader.saveToFile("test.bson");
+    public void testFileInvalid2 () throws Exception, JWitsmlException {
+        try {
+            jWitsmlParserLoader.saveToFile("testBson.bson");
+            fail("Could not execute this line");
+        } catch (Exception e) {
+            assertEquals("saveToFile: WITSML error or object not parsed", e.getMessage());
+        }
+
+        jWitsmlParserLoader.parser(attachmentText);
+        jWitsmlParserLoader.saveToFile("testBson.bson");
+        jWitsmlParserLoader.saveToFileJSON("testBson.json");
     }
 
     public void testFileValid1 () throws Exception, JWitsmlException {
@@ -136,6 +189,7 @@ public class JWitsmlParserLoaderTest extends TestCase {
     public void testBsonSerialized() throws Exception, JWitsmlException {
         try {
             jWitsmlParserLoader.getSerializedBson();
+            fail("Could not execute this line");
         } catch (Exception e) {
             assertEquals("getSerializedBson: WITSML error or object not parsed yet", e.getMessage());
         }

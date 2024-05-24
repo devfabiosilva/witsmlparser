@@ -36,7 +36,7 @@ public class JWitsmlParserLoader {
 
     private native void init(int rule, boolean versionCheckDisable) throws Exception;
     public native byte[] parser(String xml) throws JWitsmlException, Exception;
-    public native byte[] parserJson(String xml) throws JWitsmlException, Exception;
+    private native byte[] parserJson(String xml) throws JWitsmlException, Exception;
     private native byte[] parserFromFile(String filename) throws JWitsmlException, Exception;
     private native byte[] parserFromFileJson(String filename) throws JWitsmlException, Exception;
     public native void saveToFile(String filename) throws Exception;
@@ -75,8 +75,8 @@ public class JWitsmlParserLoader {
         return this.decoder.readObject(this.parser(xml));
     }
 
-    public BSONObject parseToJson(String xml) throws JWitsmlException, Exception {
-        return this.decoder.readObject(this.parserJson(xml));
+    public String parseToJson(String xml) throws JWitsmlException, Exception {
+        return new String(this.parserJson(xml), StandardCharsets.UTF_8);
     }
 
     public BSONObject parseFromFileToBson(String filename) throws JWitsmlException, Exception {
