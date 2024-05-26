@@ -1379,6 +1379,8 @@ napi_value c_create(napi_env env, napi_callback_info info)
   int err;
   int32_t rule=ACTION_READ_141X;
   bool versionCheckDisable=false;
+  char msg[128];
+  const char *act;
   napi_value constructor, argv[2]={NULL}, res;
   size_t argc=2;
   struct js_cws_config_t *js_cws_instance;
@@ -1411,11 +1413,16 @@ napi_value c_create(napi_env env, napi_callback_info info)
     )
 
     JS_CWS_THROW_COND(
-      js_cws_check_action(rule)==NULL,
+      (act=js_cws_check_action(rule))==NULL,
       "js_cws_check_action",
       "Invalid rule.",
       96
     )
+
+    if ((void *)act!=(void *)RULES_TYPE[0].name) {
+      snprintf(msg, sizeof(msg), "Rule: %s not implemented yet", act);
+      JS_CWS_THROW("c_create", msg, 99)
+    }
 
     JS_CWS_THROW_COND(
       napi_get_value_bool(env, argv[1], &versionCheckDisable)!=napi_ok,

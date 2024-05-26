@@ -7,7 +7,7 @@ CC=gcc
 STRIP=strip
 CURDIR=$(PWD)
 INCLUDEDIR=$(CURDIR)/include
-FLAG=-Wall -Wno-stringop-truncation -DWITH_NONAMESPACES -DWITH_NOSERVEREQUEST -D$(STAT) -DCWS_$(ENDIAN)_ENDIAN
+FLAG=-Wall -Wno-stringop-truncation -DWITH_NONAMESPACES -DWITH_NOSERVEREQUEST -D$(STAT) -DCWS_$(ENDIAN)_ENDIAN -lpthread
 DEBUG_FLAG=-fsanitize=address,leak -DSOAP_DEBUG $(FLAG)
 LIBANAME_PY=$(LIBANAME)_py
 FLAG_JNI=-Wno-stringop-truncation -DCWS_$(ENDIAN)_ENDIAN -D$(STAT) -DWITH_NONAMESPACES -DWITH_NOSERVEREQUEST
@@ -54,7 +54,7 @@ cws_version.o:
 
 request_context.o:
 	@echo "Build request context for parsing ..."
-	@$(CC) -O2 -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context.o $(FLAG) -flarge-source-files
+	@$(CC) -O2 -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context.o $(FLAG)
 
 cws_utils.o:
 	@echo "Build CWS Utilities ..."
@@ -189,7 +189,7 @@ cws_utils_debug.o:
 
 request_context_debug.o:
 	@echo "Build request context for parsing (DEBUG) ..."
-	@$(CC) -O2 -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context_debug.o $(DEBUG_FLAG) -flarge-source-files
+	@$(CC) -O2 -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context_debug.o $(DEBUG_FLAG)
 
 cws_soap_debug.o:
 	@echo "Build CWS INTERNAL/EXTERNAL SOAP constructors/destructors (DEBUG) ..."
@@ -329,7 +329,7 @@ dbg: read1411ServerLib_debug.o write1411ServerLib_debug.o update1411ServerLib_de
 #JNI
 request_context_jni.o:
 	@echo "Build request context for parsing for Java/Kotlin ..."
-	@$(CC) -O2 -fPIC -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context_jni.o $(FLAG_JNI) -flarge-source-files
+	@$(CC) -O2 -fPIC -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context_jni.o $(FLAG_JNI)
 
 cws_utils_jni.o:
 	@echo "Build CWS Utilities for Java/Kotlin ..."
@@ -388,7 +388,7 @@ endif
 #PY
 request_context_py.o:
 	@echo "Build request context for parsing for Python 3 ..."
-	@$(CC) -O2 -fPIC -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context_py.o $(FLAG_PY) -flarge-source-files
+	@$(CC) -O2 -fPIC -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context_py.o $(FLAG_PY)
 
 cws_utils_py.o:
 	@echo "Build CWS Utilities for Python 3 ..."
@@ -445,7 +445,7 @@ endif
 #NODEJS
 request_context_js.o:
 	@echo "Build request context for parsing for Nodejs >= 8 ..."
-	@$(CC) -O2 -fPIC -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context_js.o $(FLAG_JS) -flarge-source-files
+	@$(CC) -O2 -fPIC -c $(CURDIR)/util/request_context.c -I$(INCLUDEDIR) $(PARSE_1411_READ_INCLUDE_DIR) $(PARSE_1411_WRITE_INCLUDE_DIR) $(PARSE_1411_UPDATE_INCLUDE_DIR) $(PARSE_1411_DELETE_INCLUDE_DIR) -o $(CURDIR)/util/request_context_js.o $(FLAG_JS)
 
 cws_utils_js.o:
 	@echo "Build CWS Utilities for Nodejs >= 8 ..."

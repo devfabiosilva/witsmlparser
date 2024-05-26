@@ -79,7 +79,10 @@ static PyObject *c_obj_new(PyTypeObject *type, PyObject *args, PyObject *kwds)
 static int c_obj_init(PyTypeObject *self, PyObject *args, PyObject *kwds)
 {
   char
-   *kwlist[] = {"rule", "versionCheckDisable", NULL};
+   *kwlist[] = {"rule", "versionCheckDisable", NULL},
+   msg[128];
+
+  const char *act;
 
   int
     rule=ACTION_READ_141X,
@@ -90,8 +93,12 @@ static int c_obj_init(PyTypeObject *self, PyObject *args, PyObject *kwds)
     &rule, &versionCheckDisable
   )) Py_WITSML_14X_13X_ERROR("Error on parse WITSML 1.3.X - 1.4.X BSON parser", -498)
 
-  if (!py_cws_check_action(rule))
+  if (!(act=py_cws_check_action(rule)))
     Py_WITSML_14X_13X_ERROR("Invalid action rule", -499)
+  else if ((void *)act!=(void *)CONST_TYPE[0].name) {
+    snprintf(msg, sizeof(msg), "Rule %s not implemented yet", act);
+    Py_WITSML_14X_13X_ERROR(msg, -500)
+  }
 
   Py_WITSML14X_13X_DEBUG(stdout, "Initializing config %s\n", py_cws_check_action(rule))
 
@@ -99,7 +106,7 @@ static int c_obj_init(PyTypeObject *self, PyObject *args, PyObject *kwds)
     versionCheckDisable=CWS_FLAG_CHECK_VERSION_DISABLE;
 
   if (!(PyGET_CWS_CONFIG(self)=cws_config_new("PyWITSML 1.3.X - 1.4.X BSON parser", NULL, CWS_FLAG_RECYCLABLE|versionCheckDisable, rule)))
-    Py_WITSML_14X_13X_ERROR("Could not initialize CWS config", -500)
+    Py_WITSML_14X_13X_ERROR("Could not initialize CWS config", -501)
 
   Py_WITSML14X_13X_DEBUG(stdout, "Initializing config %p\n", PyGET_CWS_CONFIG(self))
 
@@ -468,6 +475,7 @@ static PyObject *c_get_basemsg14x_list(PyTypeObject *self, PyObject *args, PyObj
     if (PyList_Append(ret, obj)==0)
       Py_DECREF(obj);
     else {
+      Py_DECREF(obj);
       Py_DECREF(ret);
       Py_WITSML_14X_13X_ERROR("Could not add Python Object to Python Parent Object", NULL)
     }

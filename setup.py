@@ -17,7 +17,7 @@ def main():
             	"parser/w1411/update/update1411ServerLib_shared.o", "parser/w1411/write/write1411ServerLib_shared.o"
             ],
             include_dirs=['include'],
-            define_macros=[("PY_SOAP_DEBUG", None), ('CWS_LITTLE_ENDIAN', None), ('WITH_STATISTICS', None), ("WITH_NONAMESPACES", None), ("WITH_NOSERVEREQUEST", None)]
+            define_macros=[('CWS_LITTLE_ENDIAN', None), ('WITH_STATISTICS', None), ("WITH_NONAMESPACES", None), ("WITH_NOSERVEREQUEST", None)]
         )])
 
 if __name__ == "__main__":
