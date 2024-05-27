@@ -769,3 +769,20 @@ else
 	@echo "Nothing to do to remove Mongo C $(MONGO_C_BRANCH)"
 endif
 
+clean_examples:
+ifneq ("$(wildcard $(CURDIR)/examples/files/*.bson)","")
+	@echo "Cleaning BSON library"
+	rm -v $(CURDIR)/examples/files/*.bson
+	@echo "Removed"
+else
+	@echo "Nothing to do to remove BSON in examples"
+endif
+
+ifneq ("$(wildcard $(CURDIR)/examples/files/*.json)","")
+	@echo "Removing JSON in examples"
+	rm -v $(CURDIR)/examples/files/*.json
+	@echo "Removed"
+else
+	@echo "Nothing to do to remove JSON in examples"
+endif
+

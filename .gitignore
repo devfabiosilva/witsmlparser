@@ -84,3 +84,7 @@ NodeJS/node_modules/
 NodeJS/package-lock.json
 examples/node_modules/
 
+# file examples
+examples/files/*.bson
+examples/files/*.json
+

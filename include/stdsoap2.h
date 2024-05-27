@@ -1250,7 +1250,7 @@ extern "C" {
 #ifndef SOAP_MAXALLOCSIZE
 //# define SOAP_MAXALLOCSIZE (0) /* max size that malloc() can handle, zero for no limit */
 // BEGIN CWITSML CUSTOM CONFIG ter 25 jul 2023 09:05:24 
-#define SOAP_MAXALLOCSIZE (256*1024)
+#define SOAP_MAXALLOCSIZE 30*(1024*1024)
 // END CWITSML CUSTOM CONFIG
 #endif
 

@@ -75,6 +75,18 @@ make pre_remove
 make remove_bson
 ```
 
+## Cleaning examples
+
+```sh
+make clean_examples
+```
+
+# Memory management
+
+**default: 30 MB**
+
+You can edit _SOAP_MAXALLOCSIZE_ in file _include/stdsoap2.h_ to alter max memory allocation for each instance
+
 # LICENSES
 
 This project is fully open source (MIT) **BUT** it depends on gSoap library that is GPLv2. See [Genivia website](https://www.genivia.com/products.html)
