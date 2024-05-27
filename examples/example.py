@@ -6,7 +6,7 @@ import witsml14xbson
 #######################
 # make -j12 py        #
 # cd examples         #
-# sourse env.sh       #
+# source env_py.sh    #
 # python3 example.py  #
 #######################
 
