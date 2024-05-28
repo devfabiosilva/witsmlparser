@@ -1,6 +1,16 @@
 import bson
 import witsml14xbson
 
+# SAMPLE USAGE:
+# This example creates 5 WITSML instances with different configuration and reads all WITSML xml files in examples/files folder:
+#	1- Create default instance (Read and Schema version check) and convert to JSON and BSON files
+#	2- Create READ instance disabling Schema check and convert to JSON and BSON files
+#	3- Default READ rule with Schema version enabled and convert to JSON and BSON files
+#	4- Version check disable instance and convert to JSON and BSON files
+#	5- Check Schema version instance and convert to JSON and BSON files
+#	6- Load WITSML string from memory and parse to JSON string
+#	7- Load WITSML string from memory and parse to Python3 dict
+
 # HOW TO RUN:
 # In source directory:
 #######################
@@ -8,6 +18,12 @@ import witsml14xbson
 # cd examples         #
 # source env_py.sh    #
 # python3 example.py  #
+#######################
+
+# OR
+
+#######################
+# make py_example     #
 #######################
 
 # CLENUP:
@@ -91,8 +107,6 @@ def run_instance(fileName, instanceName, instance):
     print("Opening " + fp)
     try:
         objSerialized = instance.parseFromFile(fp)
-        obj = bson.decode(objSerialized)
-        print(obj)
     except Exception as e:
         print_parser_error(instance, e)
 

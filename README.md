@@ -75,6 +75,20 @@ make pre_remove
 make remove_bson
 ```
 
+# Running examples
+
+## NodeJS example
+
+```sh
+make node_example
+```
+
+## Python3 example
+
+```sh
+make py_example
+```
+
 ## Cleaning examples
 
 ```sh

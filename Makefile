@@ -786,3 +786,17 @@ else
 	@echo "Nothing to do to remove JSON in examples"
 endif
 
+node_example:
+	make clean_examples && make clean && make -j4 nodejs
+	@echo "Running NodeJS example"
+ifeq ("$(wildcard $(CURDIR)/examples/node_modules/)","")
+	@echo "Installing Node bson library"
+	cd $(CURDIR)/examples/;npm install
+endif
+	cd $(CURDIR)/examples/;node example.js
+
+py_example:
+	make clean_examples && make clean && make -j4 py
+	@echo "Running Python3 example"
+	cd $(CURDIR)/examples/;sh env_py.sh;python3 example.py
+

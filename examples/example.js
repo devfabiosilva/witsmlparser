@@ -1,6 +1,14 @@
 const { BSON } = require('bson')
 witsml = require('../build/Release/witsml14xbson')
 
+// SAMPLE USAGE:
+// This example creates 5 WITSML instances with different configuration and reads all WITSML xml files in examples/files folder:
+//	1- Create default instance (Read and Schema version check) and convert to JSON and BSON files
+//	2- Create READ instance disabling Schema check and convert to JSON and BSON files
+//	3- Default READ rule with Schema version enabled and convert to JSON and BSON files
+//	4- Load WITSML string from memory and parse to JSON string
+//	5- Load WITSML string from memory and parse to NodeJS object
+
 // HOW TO RUN:
 // In source directory:
 //#######################
@@ -8,6 +16,12 @@ witsml = require('../build/Release/witsml14xbson')
 // npm install          #
 // cd examples          #
 // node example.js      #
+//#######################
+
+// OR
+
+//#######################
+// make node_example    #
 //#######################
 
 // CLENUP:

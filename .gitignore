@@ -83,6 +83,8 @@ testexec
 NodeJS/node_modules/
 NodeJS/package-lock.json
 examples/node_modules/
+examples/package-lock.json
+package-lock.json
 
 # file examples
 examples/files/*.bson
