@@ -94,63 +94,6 @@ struct cws_js_err_t {
 #define SET_CONST_TYPE(val)\
   {#val, val}
 
-static struct const_type_t {
-  const char *name;
-  int value;
-} CONST_TYPE[]={
-  SET_CONST_TYPE(ACTION_READ_141X),
-  SET_CONST_TYPE(ACTION_WRITE_141X),
-  SET_CONST_TYPE(ACTION_UPDATE_141X),
-  SET_CONST_TYPE(ACTION_DELETE_141X),
-  {NULL}
-};
-
-/*
-#ifdef WITH_STATISTICS
-#define SET_JS_CWS_UINT32_STAT(s) {#s, offsetof(struct statistics_t, s)}
-struct js_cws_uint32_stat_t {
-  const char *name;
-  size_t offset;
-} JS_CWS_UINT32_STAT[] = {
-  SET_JS_CWS_UINT32_STAT(costs),
-  SET_JS_CWS_UINT32_STAT(strings),
-  SET_JS_CWS_UINT32_STAT(shorts),
-  SET_JS_CWS_UINT32_STAT(ints),
-  SET_JS_CWS_UINT32_STAT(long64s),
-  SET_JS_CWS_UINT32_STAT(enums),
-  SET_JS_CWS_UINT32_STAT(arrays),
-  SET_JS_CWS_UINT32_STAT(booleans),
-  SET_JS_CWS_UINT32_STAT(doubles),
-  SET_JS_CWS_UINT32_STAT(date_times),
-  SET_JS_CWS_UINT32_STAT(measures),
-  SET_JS_CWS_UINT32_STAT(event_types),
-  SET_JS_CWS_UINT32_STAT(total),
-  {NULL}
-};
-
-#define SET_JS_CWS_UINT64_STAT(s) SET_JS_CWS_UINT32_STAT(s)
-
-struct js_cws_uint64_stat_t {
-  const char *name;
-  size_t offset;
-} JS_CWS_UINT64_STAT[] = {
-  SET_JS_CWS_UINT64_STAT(used_memory),
-  {NULL}
-};
-
-#undef SET_JS_CWS_UINT64_STAT
-#undef SET_JS_CWS_UINT32_STAT
-#endif
-*/
-#define SET_JS_FN_CALL(fn) {#fn, c_##fn}
-typedef struct cws_js_fn_call_t {
-   const char *function_name;
-   cws_node_fn fn;
-} CWS_JS_FUNCTIONS_OBJ;
-
-#define SET_CONST_TYPE(val)\
-  {#val, val}
-
 struct cws_js_int32_t {
   const char *name;
   int32_t value;
@@ -162,44 +105,11 @@ struct cws_js_int32_t {
   {NULL}
 };
 
-/*
-
-#ifdef WITH_STATISTICS
-static int cws_set_uint32_stat_list(napi_env env, napi_value exports, struct statistics_t *stat, struct js_cws_uint32_stat_t *list)
-{
-  napi_value int32;
-
-  while (list->name) {
-    if (napi_create_uint32(env, (uint32_t)*((uint32_t *)(((size_t)stat)+list->offset)), &int32)!=napi_ok)
-      return 650;
-
-    if (napi_set_named_property(env, exports, list->name, int32)!=napi_ok)
-      return 651;
-
-    list++;
-  }
-
-  return 0;
-}
-
-static int cws_set_uint64_stat_list(napi_env env, napi_value exports, struct statistics_t *stat, struct js_cws_uint64_stat_t *list)
-{
-  napi_value uint64;
-
-  while (list->name) {
-    if (napi_create_bigint_uint64(env, (uint64_t)*((uint64_t *)(((size_t)stat)+list->offset)), &uint64)!=napi_ok)
-      return 660;
-
-    if (napi_set_named_property(env, exports, list->name, uint64)!=napi_ok)
-      return 661;
-
-    list++;
-  }
-
-  return 0;
-}
-#endif
-*/
+#define SET_JS_FN_CALL(fn) {#fn, c_##fn}
+typedef struct cws_js_fn_call_t {
+   const char *function_name;
+   cws_node_fn fn;
+} CWS_JS_FUNCTIONS_OBJ;
 
 static char *textBufAlloc(size_t *sz, struct js_cws_config_t *js_cws_config, size_t len)
 {
@@ -1063,62 +973,7 @@ napi_value c_getJson(napi_env env, napi_callback_info info)
 
   return res;
 }
-/*
-#ifdef WITH_STATISTICS
-napi_value c_getStatistics(napi_env env, napi_callback_info info)
-{
-  napi_value argv=NULL, res;
-  int err;
-  size_t argc=0;
-  struct js_cws_config_t *js_cws_instance;
-  struct cws_js_err_t cws_js_err;
-  struct statistics_t *stat;
 
-  JS_CWS_THROW_COND(
-    napi_get_cb_info(env, info, &argc, &argv, NULL, (void **)&js_cws_instance)!=napi_ok,
-    "napi_get_cb_info",
-    "Can't parse arguments. Wrong argument at c_getStatistics",
-    90
-  )
-
-  JS_CWS_THROW_COND(argc, "c_getStatistics", "Too many arguments @ c_getStatistics", 91)
-
-  JS_CWS_THROW_COND(
-    (js_cws_instance==NULL),
-    "c_getStatistics",
-    "Fatal: js_cws_instance @ c_getStatistics. Was expected NOT NULL",
-    92
-  )
-
-  CHECK_HAS_ERROR("c_getStatistics", "Could not get statistics. Object not parsed or internal error", 93)
-
-  JS_CWS_THROW_COND(
-    (napi_create_object(env, &res)!=napi_ok),
-    "napi_create_object",
-    "napi_create_object @ c_getStatistics. Unable to create object",
-    94
-  )
-
-  JS_CWS_THROW_COND(
-    (err=cws_set_uint32_stat_list(env, res, (stat=getStatistics(js_cws_instance->soap_internal)), JS_CWS_UINT32_STAT)),
-    "cws_set_uint32_stat_list",
-    "cws_set_uint32_stat_list @ c_getStatistics. Unable to parse statistic to JavaScript object",
-    err
-  )
-
-_Static_assert(sizeof(uint64_t)>=sizeof(size_t), "Archtecture error. Refactor it");
-
-  JS_CWS_THROW_COND(
-    (err=cws_set_uint64_stat_list(env, res, stat, JS_CWS_UINT64_STAT)),
-    "cws_set_uint64_stat_list",
-    "cws_set_uint64_stat_list @ c_getStatistics. Unable to parse statistic to JavaScript object",
-    err
-  )
-
-  return res;
-}
-#endif
-*/
 napi_value c_getFaultString(napi_env env, napi_callback_info info)
 {
   napi_value argv=NULL, res;
@@ -1366,7 +1221,7 @@ CWS_JS_FUNCTIONS_OBJ CWS_JS_CREATE_FUNCTIONS[] = {
 
 const char *js_cws_check_action(int32_t rule)
 {
-  struct const_type_t *c=CONST_TYPE;
+  struct cws_js_int32_t *c=RULES_TYPE;
 
   while ((c->value!=(int)rule)&&(c->name!=NULL))
     c++;
