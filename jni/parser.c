@@ -923,7 +923,7 @@ JNIEXPORT jbyteArray JNICALL Java_org_jwitsmlparser14x_JWitsmlParserLoader_getJs
   }
 
   if (!(c_json_str=getJson(config))) {
-    throwCWitsmlException("getJsonStr: Could not get BSON serialized");
+    throwCWitsmlException("getJsonStr: Could not get JSON string");
     return NULL;
   }
 
