@@ -13,8 +13,8 @@ witsml = require('../build/Release/witsml14xbson')
 // In source directory:
 //#######################
 // make -j12 nodejs     #
-// npm install          #
 // cd examples          #
+// npm install          #
 // node example.js      #
 //#######################
 
