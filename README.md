@@ -99,7 +99,7 @@ make clean_examples
 
 **default: 30 MB**
 
-You can edit _SOAP_MAXALLOCSIZE_ in file _include/stdsoap2.h_ to alter max memory allocation for each instance
+You can edit [_SOAP_MAXALLOCSIZE_](https://github.com/devfabiosilva/witsmlparser/blob/master/include/stdsoap2.h#L1253) in file _include/stdsoap2.h_ to modify max memory allocation for each instance
 
 # LICENSES
 
