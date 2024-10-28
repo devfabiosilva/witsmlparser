@@ -3,7 +3,7 @@ from distutils.core import setup, Extension
 def main():
 
     setup(name="witsml14xbson",
-        version="0.1.0",
+        version="0.1.2",
         description="WITSML 1.4.x - 1.3.x BSON parser module for Python 3 using C library setup",
         author="Fábio Pereira da Silva",
         author_email="fabioegel@gmail.com",

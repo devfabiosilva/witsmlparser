@@ -128,7 +128,10 @@ public class JWitsmlParserLoaderTest extends TestCase {
     }
 
     public void testGetBsonVersion() throws Exception {
-        assertNotNull(jWitsmlParserLoader.getBsonVersion());
+        BSONObject version = jWitsmlParserLoader.getBsonVersion();
+        assertNotNull(version);
+        assertEquals(navigate(version, "version"), "0.1.2");
+        assertEquals(navigate(version, "dependencies", "libbson", "version"), "1.28.1");
     }
 
     public void testBaseMsgList() throws Exception {
