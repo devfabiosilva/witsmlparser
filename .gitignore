@@ -87,6 +87,11 @@ examples/package-lock.json
 package-lock.json
 
 # file examples
+
+
+#Trash
+Trash/
+
 examples/files/*.bson
 examples/files/*.json
 
