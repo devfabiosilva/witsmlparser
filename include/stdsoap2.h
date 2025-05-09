@@ -1263,7 +1263,10 @@ extern "C" {
 
 /* max HTTP chunk size is 2GB by default, can be larger but not to exceed size_t range max */
 #ifndef SOAP_MAXHTTPCHUNK
-# define SOAP_MAXHTTPCHUNK (2147483647)
+// BEGIN CWITSML CUSTOM CONFIG ter 25 jul 2023 09:05:24 
+//# define SOAP_MAXHTTPCHUNK (2147483647)
+# define SOAP_MAXHTTPCHUNK 30*(1024*1024)
+// END CWITSML CUSTOM CONFIG
 #endif
 
 /* Tag name of multiref elements in SOAP 1.1 encoding */
@@ -1335,7 +1338,10 @@ extern "C" {
 
 /* maximum string content length if not already constrained by XML schema validation maxLength constraints, zero or negative means unlimited string lengths are allowed unless restricted by XML schema maxLength */
 #ifndef SOAP_MAXLENGTH
-# define SOAP_MAXLENGTH (0)
+// BEGIN CWITSML CUSTOM CONFIG ter 25 jul 2023 09:05:24 
+//# define SOAP_MAXLENGTH (0)
+# define SOAP_MAXLENGTH 64*(1024)
+// END CWITSML CUSTOM CONFIG
 #endif
 
 /* maximum number of array or container elements, must be greater than zero (0) */
