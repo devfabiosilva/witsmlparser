@@ -20,7 +20,7 @@ LIBANAME=cws
 LIBDIR=$(CURDIR)/lib
 
 MONGO_C_GIT=https://github.com/mongodb/mongo-c-driver.git
-MONGO_C_BRANCH=1.28.1
+MONGO_C_BRANCH=2.2.1
 MONGO_C_DIR=$(CURDIR)/third-party/mongo-c-driver
 
 LIBANAME_JNI=$(LIBANAME)_jni
@@ -48,7 +48,7 @@ all: main
 
 cws_version.o:
 	@echo "Generating version ..."
-	@$(CC) -O2 $(CURDIR)/misc/versionBuilder.c $(CURDIR)/util/cws_utils.c $(CURDIR)/util/cws_bson_utils.c -I$(INCLUDEDIR) -o $(CURDIR)/misc/versionBuilder -L$(LIBDIR) -lbson-static-1.0 -Wall $(FLAG) -DVERGEN
+	@$(CC) -O2 $(CURDIR)/misc/versionBuilder.c $(CURDIR)/util/cws_utils.c $(CURDIR)/util/cws_bson_utils.c -I$(INCLUDEDIR) -o $(CURDIR)/misc/versionBuilder -L$(LIBDIR) -lbson-static-$(MONGO_C_BRANCH) -Wall $(FLAG) -DVERGEN
 	cd $(CURDIR)/misc/;./versionBuilder
 	$(LD) -o $(CURDIR)/util/cws_version.o version.bson
 
@@ -278,7 +278,7 @@ endif
 main: read1411ServerLib.o write1411ServerLib.o update1411ServerLib.o delete1411ServerLib.o lib$(LIBANAME).a
 #main: write1411ServerLib.o update1411ServerLib.o delete1411ServerLib.o lib$(LIBANAME).a
 	@echo "Compiling ..."
-	@$(CC) -O2 -o $(TARG) main.c $(PARSE_1411_READ_DIR)/read1411ServerLib.o $(PARSE_1411_WRITE_DIR)/write1411ServerLib.o $(PARSE_1411_UPDATE_DIR)/update1411ServerLib.o $(PARSE_1411_DELETE_DIR)/delete1411ServerLib.o stdsoap2.c -I$(INCLUDEDIR) -L$(LIBDIR) -l$(LIBANAME) -lbson-static-1.0 $(FLAG)
+	@$(CC) -O2 -o $(TARG) main.c $(PARSE_1411_READ_DIR)/read1411ServerLib.o $(PARSE_1411_WRITE_DIR)/write1411ServerLib.o $(PARSE_1411_UPDATE_DIR)/update1411ServerLib.o $(PARSE_1411_DELETE_DIR)/delete1411ServerLib.o stdsoap2.c -I$(INCLUDEDIR) -L$(LIBDIR) -l$(LIBANAME) -lbson-static-$(MONGO_C_BRANCH) $(FLAG)
 	@echo "Finished"
 
 ###
@@ -321,7 +321,7 @@ endif
 
 dbg: read1411ServerLib_debug.o write1411ServerLib_debug.o update1411ServerLib_debug.o delete1411ServerLib_debug.o lib$(LIBANAME)_debug.a
 	@echo "Compiling in debug mode ..."
-	@$(CC) -O2 -o $(TARG_DBG) main.c $(PARSE_1411_READ_DIR)/read1411ServerLib_debug.o $(PARSE_1411_WRITE_DIR)/write1411ServerLib_debug.o $(PARSE_1411_UPDATE_DIR)/update1411ServerLib_debug.o $(PARSE_1411_DELETE_DIR)/delete1411ServerLib_debug.o stdsoap2.c -I$(INCLUDEDIR) -L$(LIBDIR) -l$(LIBANAME)_debug -lbson-static-1.0 $(DEBUG_FLAG)
+	@$(CC) -O2 -o $(TARG_DBG) main.c $(PARSE_1411_READ_DIR)/read1411ServerLib_debug.o $(PARSE_1411_WRITE_DIR)/write1411ServerLib_debug.o $(PARSE_1411_UPDATE_DIR)/update1411ServerLib_debug.o $(PARSE_1411_DELETE_DIR)/delete1411ServerLib_debug.o stdsoap2.c -I$(INCLUDEDIR) -L$(LIBDIR) -l$(LIBANAME)_debug -lbson-static-$(MONGO_C_BRANCH) $(DEBUG_FLAG)
 	@echo "Finished in debug mode."
 
 #//////////////////////////////
@@ -716,7 +716,7 @@ pre_shared: read1411ServerLib_shared.o read1411ServerLib_shared_debug.o write141
 #jni: lib$(LIBANAME_JNI).a
 jni: lib$(LIBANAME_JNI).a
 	@echo "Compiling $(LIBJNI)..."
-	@$(CC) -O2 -shared -fPIC -o $(LIBJNI) jni/parser.c stdsoap2.c $(CURDIR)/parser/w1411/delete/delete1411ServerLib_shared.o $(CURDIR)/parser/w1411/read/read1411ServerLib_shared.o $(CURDIR)/parser/w1411/update/update1411ServerLib_shared.o $(CURDIR)/parser/w1411/write/write1411ServerLib_shared.o -I$(INCLUDEDIR) -I$(JAVAINCLUDE) -I$(JAVAINCLUDE_LINUX) -L$(LIBDIR) -lcws_jni -lpthread -lbson-shared-1.0 -Wall $(FLAG_JNI)
+	@$(CC) -O2 -shared -fPIC -o $(LIBJNI) jni/parser.c stdsoap2.c $(CURDIR)/parser/w1411/delete/delete1411ServerLib_shared.o $(CURDIR)/parser/w1411/read/read1411ServerLib_shared.o $(CURDIR)/parser/w1411/update/update1411ServerLib_shared.o $(CURDIR)/parser/w1411/write/write1411ServerLib_shared.o -I$(INCLUDEDIR) -I$(JAVAINCLUDE) -I$(JAVAINCLUDE_LINUX) -L$(LIBDIR) -lcws_jni -lpthread -lbson-shared-$(MONGO_C_BRANCH) -Wall $(FLAG_JNI)
 	#@$(CC) -O2 -shared -fPIC -o $(LIBJNI) jni/parser.c -I$(INCLUDEDIR) -I$(JAVAINCLUDE) -I$(JAVAINCLUDE_LINUX)  -L$(LIBDIR)
 	@echo "Striping $(LIBJNI) ..."
 	@$(STRIP) $(LIBJNI)
@@ -749,7 +749,7 @@ ifneq ("$(wildcard $(MONGO_C_DIR))","")
 	@echo "Already cloned. Skip"
 else
 	@echo "Cloning branch $(MONGO_C_BRANCH) from $(MONGO_C_GIT)"
-	pwd; cd $(CURDIR)/third-party; pwd; git clone -b $(MONGO_C_BRANCH) $(MONGO_C_GIT); cd mongo-c-driver;mkdir compiled && cd compiled; cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_MONGOC=OFF -DCMAKE_INSTALL_PREFIX=$(MONGO_C_DIR)/compiled/out; make -j12;make install; pwd; cp out/lib/libbson-static-1.0.a $(LIBDIR) -v;cp -frv out/include/libbson-1.0/bson $(INCLUDEDIR);cd src/libbson/CMakeFiles/bson_shared.dir; pwd; ar rcs $(LIBDIR)/libbson-shared-1.0.a src/bson/*.o src/jsonsl/*.o __/common/*.o
+	pwd; cd $(CURDIR)/third-party; pwd; git clone -b $(MONGO_C_BRANCH) $(MONGO_C_GIT); cd mongo-c-driver;mkdir compiled && cd compiled; cmake .. -DCMAKE_BUILD_TYPE=Release -DENABLE_MONGOC=OFF -DCMAKE_INSTALL_PREFIX=$(MONGO_C_DIR)/compiled/out; make -j12;make install; pwd; cp out/lib/libbson2.a $(LIBDIR)/libbson-static-$(MONGO_C_BRANCH).a -v;cp -frv out/include/bson-$(MONGO_C_BRANCH)/bson $(INCLUDEDIR);cd src/libbson/CMakeFiles/bson_shared.dir; pwd; ar rcs $(LIBDIR)/libbson-shared-$(MONGO_C_BRANCH).a src/bson/*.o src/jsonsl/*.o __/common/src/*.o
 endif
 
 remove_bson:

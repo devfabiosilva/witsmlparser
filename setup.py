@@ -3,7 +3,7 @@ from distutils.core import setup, Extension
 def main():
 
     setup(name="witsml14xbson",
-        version="0.1.2",
+        version="0.1.3",
         description="WITSML 1.4.x - 1.3.x BSON parser module for Python 3 using C library setup",
         author="Fábio Pereira da Silva",
         author_email="fabioegel@gmail.com",
@@ -11,7 +11,7 @@ def main():
         maintainer_email="fabioegel@gmail.com",
         ext_modules=[Extension("witsml14xbson", ["python/module.c", "stdsoap2.c"],
             library_dirs=['lib'],
-            libraries=['cws_py', 'bson-shared-1.0'],
+            libraries=['cws_py', 'bson-shared-2.2.1'],
             extra_objects=[
             	"parser/w1411/delete/delete1411ServerLib_shared.o", "parser/w1411/read/read1411ServerLib_shared.o",
             	"parser/w1411/update/update1411ServerLib_shared.o", "parser/w1411/write/write1411ServerLib_shared.o"

@@ -1,6 +1,10 @@
 # Changelog
 WITSML 1.3.1.x | 1.4.1.x to BSON parser changelogs
 
+## [0.1.3] - 2025-12-20
+- Update libbson 1.28.1 -> 2.2.1 ✔️
+- Update Java bson org.mongodb dependency version to 5.6.2 ✔️
+
 ## [0.1.2] - 2024-10-28
 - Update gSoap 2.8.129 -> 2.8.135 ✔️
 - Update libbson 1.27.1 -> 1.28.1 ✔️
@@ -16,6 +20,8 @@ WITSML 1.3.1.x | 1.4.1.x to BSON parser changelogs
 
 ## [master] - current
 
+[0.1.3]: https://github.com/devfabiosilva/witsml21parser/tree/v0.1.3
+[0.1.2]: https://github.com/devfabiosilva/witsml21parser/tree/v0.1.2
 [0.1.1]: https://github.com/devfabiosilva/witsml21parser/tree/v0.1.1
 [0.1.0]: https://github.com/devfabiosilva/witsml21parser/tree/v0.1.0
 [master]: https://github.com/devfabiosilva/witsmlparser/tree/master
