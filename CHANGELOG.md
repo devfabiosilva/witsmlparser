@@ -20,9 +20,9 @@ WITSML 1.3.1.x | 1.4.1.x to BSON parser changelogs
 
 ## [master] - current
 
-[0.1.3]: https://github.com/devfabiosilva/witsml21parser/tree/v0.1.3
-[0.1.2]: https://github.com/devfabiosilva/witsml21parser/tree/v0.1.2
-[0.1.1]: https://github.com/devfabiosilva/witsml21parser/tree/v0.1.1
-[0.1.0]: https://github.com/devfabiosilva/witsml21parser/tree/v0.1.0
+[0.1.3]: https://github.com/devfabiosilva/witsmlparser/tree/v0.1.3
+[0.1.2]: https://github.com/devfabiosilva/witsmlparser/tree/v0.1.2
+[0.1.1]: https://github.com/devfabiosilva/witsmlparser/tree/v0.1.1
+[0.1.0]: https://github.com/devfabiosilva/witsmlparser/tree/v0.1.0
 [master]: https://github.com/devfabiosilva/witsmlparser/tree/master
 
